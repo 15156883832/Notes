@@ -16,7 +16,7 @@
 
 	6.将文件提交到仓库，输入指令：git commit -m "这是注释内容"
 	7.https://github.com/15156883832/Notes.git
-	8.输入指令：git remote add origin https://github.com/xxxx/xxx.git（https://github.com/xxxx/xxx.git就是仓库		地址 ）
+	8.输入指令：git remote add origin https://github.com/xxxx/xxx.git（https://github.com/xxxx/xxx.git就是仓库地址 ）
 	9.如果有弹窗对话框需要输入你的github账户密码，按照提示输入即可；如果没有请进行下一步
 	10.输入指令：git push -u origin master
 
