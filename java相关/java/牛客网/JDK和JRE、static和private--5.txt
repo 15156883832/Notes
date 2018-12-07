@@ -1,0 +1,9 @@
+JRE(java run environment):java运行时环境，包括JVM、java核心库和支持文件，但没有编译器调试工具等其他工具。
+
+JDK（java development kit）:java开发工具包,完整的java软件开发包，包含JRE、编译器等工具。
+
+static：修饰方法的时候可以在该方法所在的对象没有实列化的情况下访问这个static修饰的方法，并且，static和private一样
+    都不能被覆盖，因为方法覆盖是基于运行时动态绑定的，而static是编译时静态绑定的，private修饰的方法只能在当前类中    使用，更别说实在其它类中使用覆盖了。
+
+同样不能在static环境下访问非static变量，因为，非static需要实例话的时候创建，没实列化就访问会报错，还没被创建
+

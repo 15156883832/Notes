@@ -1,0 +1,39 @@
+java集合接口：(请注意这些是接口，接口是不能实列化的！！！只能实例化实现这些接口的类)
+
+Collection:一组对象，每个对象都是它的子元素
+Set:不包含重复元素的Collection，继承于Collection
+List:有顺序的Collection,可包含重复元素,继承于Collection
+Map:key：value,key不能重复
+
+Collection (Interface)    Set (Interface)
+			  	HashSet
+
+			  	SortedSet (Interface)
+					TreeSet
+
+	      
+	                   List (Interface)	
+			   	ArrayList
+			   	LinkedList
+			   	Vector
+					Stack
+
+Map (Interface)		   HashMap
+		
+			   sortedMap (Interface)
+				TreeMap
+
+			   Hashtable
+				Properties
+
+
+hashCode:散列码（整数）
+
+String a = "shed";
+int code = 0;
+for(int i=0;i<a.length();i++){
+	code =  31*code + charAt(i);
+};//code就是最终的散列码
+
+HashSet:	
+

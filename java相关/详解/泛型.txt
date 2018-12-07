@@ -1,0 +1,20 @@
+List list = new ArrayList()//定义了一个list,是List类型，这个list存的是默认Object类型
+
+List<String> list = new ArrayList<String>();//定义了一个list，是List<String>类型，这个list存的是默认String类型
+
+泛型：即参数化类型
+
+八大基本数据类型（四整、两浮点、一字符、一布尔）
+变量创建的时候会在内存中申请空间，内存管理会根据变量的类型来分配空间
+
+
+1) int （32位，默认值为0）
+	包装类：java.lang.Integer(默认为null)
+2) float (32位，单精度，默认为0.0f,9.1f)
+3) double (64位，双精度，默认为0.0d,9.1)
+4) boolean (true or false)
+5) char (单一的16位unicode字符，最小为0，最大为\uffff(65535) ,'A';)
+6) byte (8位,-128-127,default:0,相比于int，节省空间)
+	包装类：java.lang.Byte(不能为空)
+7) short （16位，默认为0）
+8) long （64位，默认为0L）

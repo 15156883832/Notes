@@ -1,0 +1,9 @@
+java体系四个独立又相关的技术：
+	java程序设计语言
+	java class 文件格式
+	java应用编程接口（API）
+	java虚拟机
+
+	程序的源文件(.java文件)  -->  Java编译器（javac） --> .class文件 --> Java虚拟机 <-- java api .class文件
+
+JVM的主要作用：装载.class文件并执行其中的字节码

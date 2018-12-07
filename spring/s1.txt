@@ -1,0 +1,31 @@
+spring提供了一种方法管理业务对象
+
+spring特性（优势）：DI(依赖注入：在spring 的xml文件中描述对象之间的关系) aop(面向切面编程)
+
+
+Java Bean (规范类)：1）public 2）有无参数构造函数（不生成的话会默认）3）getter、setter方法
+
+
+spring :
+
+jar包 ：四个核心（spring beans、core、context、expression） + 一个依赖(apache.commom.logging)
+        AOP、Aspects、Instrumentation、messaging
+	Data Acess/Integration(数据库、事务、整合hibernate相关)
+	Web
+
+
+声明Bean的注解：	
+	@Component组件，没有明确的角色（当组件不好归类的时候可以用@Component（也可以指定beanName））
+	@Service 在业务逻辑层使用(Servie)
+	@Repository 在访问数据层使用,持久层(Dao)
+	@Controller 在展现层使用(Controller)
+
+配置文件中会有配置<context:component-scan base-package="" ></context:component-scan>,扫描所有被声明注解的bean然后放到spring管理容器中
+
+@Autowired 自动装配（如果是个接口，前提是这个接口有且仅有一个实现类，如果有多个实现类，那么需要加@Qualifier("实现类名称")）
+
+spring是分层的轻量级框架：
+EE开发分成三层：1.WEB(jsp、struts2等) 2.业务层（逻辑处理 service 等JavaBean ） 3.持久层（Dao--hibernate）
+
+
+

@@ -1,0 +1,21 @@
+java虚拟机是一种可执行java字节码的虚拟机进程。java源文件被编译成能被jvm执行的字节码文件。
+
+（.java文件[源文件] — 经 java编译器[javac] 编译成 .class文件[字节码文件] ）
+
+【java字节码都是固定的一个字节（16进制），因此能做到一次编译，到处运行】
+
+【jvm将字节码生成对应的机器码，供不同的硬件运行】
+
+C:\Program Files\Java\jdk1.8.0_131\bin（本人jdk路径）
+
+
+/** cmd指令编译java文件 **/
+jdk\bin>(jdk路径)  javac E:\all_project_collection\str1\src\main\java\test1\practise\main\Mains2.java -encoding utf-8
+
+/** cmd指令运行.class文件 **/
+.class\package>（.class文件所在包的路径） java test1.practise.main.Mains2
+
+
+
+
+

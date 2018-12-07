@@ -1,0 +1,8 @@
+建造者模式：
+	创建者角色（Builder）：
+
+	具体创建者角色：（ConcreateBuilder）
+
+	指导者（Director）：
+
+	产品（Product）:

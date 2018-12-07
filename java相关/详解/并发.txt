@@ -1,0 +1,44 @@
+竞态条件：先检查在执行（通过一个可能失效的观察结果来决定下一步的动作），典型的延迟初始化（将对象的初始化延迟到实际使用时才执行，同时要确保只初始化一次），
+数据静态：两线程访问共享的非final类的时候
+
+锁的重入：锁采用计数机制,如下
+
+public class test1{
+
+    public static void main(String[] args){
+	test2();
+    }
+
+    public static  void test2(){
+	synchronized(test1.class){
+	    test3();
+	    System.out.println("test2");
+	}
+	
+    }
+
+    public static void test3(){
+	synchronized(test1.class){
+	    System.out.println("test3");
+	}
+    }
+	
+}
+执行到test2时，锁test1.class +1;test2中有test3方法，test3中又有锁test1.class,重入了，+1，然后就是2，当锁为0时，就释放锁
+
+每个共享的和可变的变量都应该由一个锁来保护
+
+对象的序列化：（Serialization）继承了Serializable或者Externializable才能序列化
+    序列化：将（Java)对象转化成字节序列的过程
+    反序列化：将字节序列恢复成(Java)对象的过程
+序列化的作用：1）将对象的自接序列永久的保存下来（持久化对象）
+	      2）网络传输对象
+
+序列化的作用是能转化成Byte流，然后又能反序列化成原始的类。能在网络进行传输，也可以保存在磁盘中，
+private static final long serialVersionUID = 1L;主要用于版本控制
+
+有了SUID之后，那么如果序列化的类已经保存了在本地中，中途你更改了类后，SUID变了，那么反序列化的时候就不会变成原始的类了，还会抛异常，主要就是用于版本控制。
+
+线程并发：安全、简单、性能
+
+    
