@@ -1,0 +1,20 @@
+java中的方法只能作为类的一部分来创建，也只能通过对象来调用
+
+static关键字：可以让外界在不使用对象的情况下直接访问这个方法或者作用域，即，用static创建的这个方法与它所在的类中的对象没有关系，当然，应用static的方法或者变量有两种方法：一种是通过对象去定位；另一种是通过类直接去引用。
+
+private UserDao userDao;//new一个对象，不分配内存空间，常用
+
+private UserDao userDao = new UserDao();//new一个对象，且分配内存空间
+
+hql:对大小写敏感
+sql:对大小写不敏感
+
+SELECT  b.login_name,CASE a.type WHEN '0' THEN '跑步' WHEN '1' THEN '跳绳' WHEN '2' THEN '跳远' WHEN '3' THEN '俯卧撑' ELSE '未知' END AS proType,SUM(a.pay_money) FROM sql_test a LEFT JOIN zxf_user b ON b.id=a.pay_by GROUP BY a.type,a.pay_by
+
+
+
+SELECT a.type,COUNT(*) FROM sql_test a GROUP BY a.type,a.pay_by
+
+JVM:java virtual machine ,java虚拟机，java程序不与操作系统直接关联，jvm对java的源文件不关系，只关心源文件生成的class file,java程序被编译成.class文件（包含jvm的指令集），然后通过虚拟机与操作系统交互，由虚拟机解释给操作系统，jvm的实现方式有很多种，常见的是垃圾回收算法，线程调度算法。jvm是java的平台，有自己的指令集
+
+证书编号：103571201605100443
