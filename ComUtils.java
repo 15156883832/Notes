@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,12 +13,26 @@ import org.apache.commons.lang3.StringUtils;
 public class ComUtils {
 
 	public static void main(String[] args) {
-		String str1 = "11,29,33,4,5";
-		String str2 = "3";
-		Map<String, String> map = getCompareStrPart(str1, str2);
-		System.out.println(map.get("left").toString());
-		System.out.println(map.get("same").toString());
-		System.out.println(map.get("right").toString());
+		List<String[]> list = new ArrayList<>();
+		String[] arr1 = new String[] { "1", "2", "2", "2", "1", "3", "1" };
+		String[] arr2 = new String[] { "ds", "vc", "4", "cat", "2", "3", "6" };
+		String[] arr3 = new String[] { "people", "ani", "ani", "ani", "people", "people", "people" };
+		String[] arr4 = new String[] { "哈哈", "小狗", "4", "小狗", "嘿嘿", "3", "哈哈" };
+		String[] arr5 = new String[] { "2", "3", "6", "2", "2", "3", "6" };
+		String[] arr6 = new String[] { "1", "tony", "4", "cat", "2", "3", "6" };
+		String[] arr7 = new String[] { "1", "2", "3", "6", "2", "4", "10" };
+		list.add(arr1);
+		list.add(arr2);
+		list.add(arr3);
+		list.add(arr4);
+		list.add(arr5);
+		list.add(arr6);
+		list.add(arr7);
+		List<String[]> listRet = repeatArray(list, new Integer[] { 0, 2, 3 }, new Integer[] { 4, 6 });
+		for (String[] arr : listRet) {
+			System.out.println(StringUtils.join(arr, ",") + "\n");
+		}
+
 	}
 
 	/* 数组转去重 */
@@ -69,42 +84,77 @@ public class ComUtils {
 		return StringUtils.join(arr, ",");
 	}
 
-	/* 根据某一项或某几项 合并数组的某一项或者某几项（相加） */
+	/*
+	 * 根据某一项或某几项 合并数组的某一项或者某几项（相加）
+	 * 
+	 * { "001", "0", "a", "type", "2", "5", "00" } { "101", "0", "b", "type", "1",
+	 * "2", "00" }; { "001", "1", "a", "type", "5", "5", "00" } { "001", "0", "a",
+	 * "type", "7", "3", "00" } { "101", "0", "b", "type", "1", "10", "00" } {
+	 * "001", "0", "c", "type", "3", "1", "00" } paramsAdd(list, new Integer[] { 0,
+	 * 1, 2 }, new Integer[] { 4, 5 })
+	 * 
+	 */
 
 	public static List<String[]> paramsAdd(List<String[]> list, Integer[] gene, Integer[] nums) {
-		if (list == null || list.size() < 1) {
+		if (list == null || gene == null || nums == null || list.size() < 1 || gene.length < 1 || nums.length < 1) {
 			return new ArrayList<>();
 		}
-		List<Map<String, Object>> listParam = new ArrayList<>();
-		for (int i = 0; i < gene.length; i++) {
-			Map<String, Object> mapRet = new HashMap<>();
-			mapRet.put("name", "m" + gene[i]);
-			mapRet.put("arr", "");
-			listParam.add(mapRet);
-		}
-		for (int i = 0; i < list.size(); i++) {
-			String[] arr = list.get(i);
-			if ("".equals(listParam.get(0).get("arr").toString())) {
-				for (Map<String, Object> mp : listParam) {
-					String val = arr[Integer.valueOf(mp.get("name").toString().substring(1, 2))];
-					mp.put("arr", val);
+		List<String[]> listRet = new ArrayList<>();
+		for (String[] arr : list) {
+			Integer len = gene.length + nums.length + 1;
+			String[] newArr = new String[gene.length + nums.length + 1];
+			int h = 0;
+			String str = "";
+			for (Integer m : gene) {
+				str += "," + arr[m];
+				newArr[h] = arr[m];
+				h++;
+			}
+			Map<String, String> mapCheck = compareWith(str, listRet);
+			String code = mapCheck.get("code");
+			String sameNum = mapCheck.get("sameNum");
+			if ("200".equals(code)) {// 直接加，不重复
+				for (Integer n : nums) {
+					newArr[h] = arr[n];
+					h++;
 				}
-			} else {
-				for (Map<String, Object> mp : listParam) {
-					String val = arr[Integer.valueOf(mp.get("name").toString().substring(1, 2))];
-					mp.put("arr", mp.get("name").toString() + "," + val);
+				newArr[len - 1] = str;
+				listRet.add(newArr);
+			} else {// 存在重复的数据
+				String[] arry = listRet.get(Integer.valueOf(sameNum));// 获取已存在的数据
+				int y = gene.length;
+				for (Integer n : nums) {
+					arry[y] = String.valueOf((Integer.valueOf(arry[y]) + Integer.valueOf(arr[n])));
+					y++;
 				}
 			}
 		}
-		Set<String> set = new HashSet<>();
-		String[] array = ids.split(",");
-		for (int i = 0; i < array.length; i++) {
-			Boolean bls = set.add(array[i]);
-			if (!bls) {
+		for (String[] arrRet : listRet) {
+			arrRet[arrRet.length - 1] = "";
+		}
+		return listRet;
+	}
 
-			}
+	public static Map<String, String> compareWith(String str, List<String[]> listRet) {
+		Map<String, String> map = new HashMap<>();
+		String code = "200";
+		map.put("sameNum", "");
+		map.put("code", code);
+		if (listRet.size() < 1) {
+			return map;
 		}
 
+		int i = 0;
+		for (String[] arr : listRet) {
+			String str1 = arr[arr.length - 1];
+			if (str1.equals(str)) {
+				code = "420";
+				map.put("code", code);
+				map.put("sameNum", String.valueOf(i));
+			}
+			i++;
+		}
+		return map;
 	}
 
 	/* a,b.c 和b,c,d中分别获取不同以及相同的部分 */
@@ -139,6 +189,70 @@ public class ComUtils {
 		map.put("left", StringUtils.join((String[]) setLeft.toArray(new String[setLeft.size()]), ","));
 		map.put("right", StringUtils.join((String[]) setRight.toArray(new String[setRight.size()]), ","));
 		return map;
+	}
+
+	/*
+	 * 
+	 * 去重组合相加 {a1,a2,a3,a4,a5},{b1,b2,b3,b4,b5},{c1,c2,c3,c4,c5},{d1,d2,d3,d4,d5},
+	 * {e1,e2,e3,e4,e5},{f1,f2,f3,f4,f5},{g1,g2,g3,g4,g5}
+	 * sameNum={0,2,4}————a、c、e相同判别 ；addNum={1,5}————————b、f相加
+	 * 
+	 * 
+	 **/
+	public static List<String[]> repeatArray(List<String[]> lists, Integer[] sameNum, Integer[] addNum) {
+		if (lists == null || sameNum == null || addNum == null || lists.size() < 1 || sameNum.length < 1 || addNum.length < 1) {
+			return new ArrayList<String[]>();
+		}
+		List<String[]> list = inversonControl(lists);// 数组重组
+		Set<String> set = new HashSet<>();
+		List<String[]> listRet = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			String[] arr1 = list.get(i);
+
+			String newArr = "";
+			for (int m = 0; m < sameNum.length; m++) {
+				newArr = "," + arr1[sameNum[m]];
+			}
+			if (!set.add(newArr)) {// 已存在
+				continue;
+			}
+
+			for (int j = i + 1; j < list.size(); j++) {
+				String[] arr2 = list.get(j);
+				Boolean addMark = true;
+				for (int n = 0; n < sameNum.length; n++) {
+					if (!arr1[sameNum[n]].equals(arr2[sameNum[n]])) {
+						addMark = false;
+						break;
+					}
+				}
+				if (addMark) {// 需要相同的项都相同，则对应项相加
+					for (int n = 0; n < addNum.length; n++) {
+						arr1[addNum[n]] = String.valueOf(Integer.valueOf(arr1[addNum[n]]) + Integer.valueOf(arr2[addNum[n]]));
+					}
+				}
+			}
+
+			listRet.add(arr1);
+		}
+		return inversonControl(listRet);
+	}
+
+	public static List<String[]> inversonControl(List<String[]> list) {
+		if (list == null || list.size() < 1) {
+			return new ArrayList<>();
+		}
+		String[] arrOne = list.get(0);// 获取其中的一组
+		List<String[]> listRet = new ArrayList<>();
+		for (int i = 0; i < arrOne.length; i++) {
+			String[] newArr = new String[list.size()];
+			for (int j = 0; j < list.size(); j++) {
+				newArr[j] = list.get(j)[i];
+			}
+			listRet.add(newArr);
+		}
+
+		return listRet;
 	}
 
 }
