@@ -7,7 +7,7 @@ A extends B
 向下转型：if(c instanceof A){ A a = (B)c	}
   eg: A extends B ;
       B b = new A();
-      A a =  (B) b; //b instanceof B :b是B的一个实例
+      A a =  (A) b; //b instanceof A :b是A的一个实例
 
 
 泛型：E、T、K、V、N
