@@ -1,10 +1,13 @@
-ת�͵��������̳У����븴�ã��̳и����˽�е����Ժͷ�������չ�Լ��ķ��������ԣ�
+转型的条件：继承（代码复用，继承父类非私有的属性和方法，扩展自己的方法和属性）
 
 A extends B
 
-����ת�ͣ�B b = new A();
+向上转型：B b = new A(); //常用
 
-����ת�ͣ�if(c instanceof A){ A a = (B)c	}
+向下转型：if(c instanceof A){ A a = (B)c	}
+  eg: A extends B ;
+      B b = new A();
+      A a =  (B) b; //b instanceof B :b是B的一个实例
 
 
-���ͣ�E��T��K��V��N
+泛型：E、T、K、V、N
