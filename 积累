@@ -1,2 +1,18 @@
 String url = request.getScheme() +"://" + request.getServerName()
                 + ":" +request.getServerPort()+"/"+path2;
+                
+                
+                
+//两种获取spring IOC方法 ，最终都会调用 AbstractApplicationContext 的 refresh()方法
+public static void main(String[] args) {
+    //基于xml 创建IOC容器
+    ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("application-bean.xml");
+    Car car=(Car)context.getBean("car");
+    car.run();
+    context.close();
+
+    //基于注解@Configuration 创建IOC容器
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(Animal.class);
+    Animal animal = (Animal) ctx.getBean("animal");
+    System.out.println("哈哈哈");
+}
